@@ -1,7 +1,5 @@
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
+import java.util.InputMismatchException;
 
 public class Main {
 
@@ -18,19 +16,33 @@ public class Main {
         array[0]=john;
         array[1]=mia;
         array[2]=rick;
-        savingList(array,"Person.txt");
+        savingFile(array,"Person.txt");
+        fileRead("Person.txt");
+
 
     }
-    public static void savingList(Person[]array,String txt){
+    public static void savingFile(Person[]array,String txt){
         for (int i = 0; i < array.length; i++) {
             try(BufferedWriter saver = new BufferedWriter(new FileWriter(txt,true))){
                 saver.write(array[i].name+" ");
                 saver.write(array[i].age+"\n");
             }catch(IOException e){
-                System.out.println("Запись не удалась");
+                System.out.println("Запись не удалась.");
             }
         }
-        System.out.println("Запись в файл прошла успешно");
+        System.out.println("Запись в файл прошла успешно.");
+    }
+    public static void fileRead(String txt){
+
+        try(BufferedReader reader = new BufferedReader(new FileReader(txt))){
+            String counter =" ";
+            while((counter = reader.readLine()) != null) {
+                System.out.println(counter);
+            }
+        }catch(IOException e){
+            e.getMessage();
+        }
+        System.out.println("\nЧтение завершено.");
     }
 }
 /*
